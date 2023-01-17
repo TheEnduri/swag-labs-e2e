@@ -1,1 +1,8 @@
+# artifacts
+cypress/screenshots
+cypress/videos
+
+#environmental
+cypress.env.json
+
 node_modules

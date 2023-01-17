@@ -1,0 +1,8 @@
+node_modules
+.husky
+
+cypress/fixtures
+cypress/formatter
+cypress/reports
+cypress/screenshots
+cypress/videos
