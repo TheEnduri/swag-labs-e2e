@@ -1,5 +1,9 @@
+import inventoryPage from 'pages/inventory/inventory'
+import menuPage from 'pages/menu/menu'
 import signInPage from '../../pages/signIn/signInPage'
 
+const inventory = new inventoryPage()
+const menu = new menuPage()
 const signIn = new signInPage()
 
 describe('Sign-in process', () => {
@@ -14,5 +18,12 @@ describe('Sign-in process', () => {
     signIn.loginButton().click()
 
     // Verification of authentication
+    cy.url().should('include', 'inventory.html')
+    menu.burgerMenuButton()
+    menu.shopingCart()
+    cy.get('div.header_secondary_container').contains('span.title', 'Products')
+    inventory.inventoryList().within(() => {
+      inventory.inventoryItem().should('have.length.gte', 1)
+    })
   })
 })
