@@ -8,8 +8,11 @@ describe('Sign-in process', () => {
     cy.get('div.login_logo').should('be.visible')
   })
   it('Authentication of existing user', () => {
-    signIn.usernameInput()
-    signIn.passwordInput()
-    signIn.loginButton()
+    // Login process
+    signIn.usernameInput().type(Cypress.env('username'))
+    signIn.passwordInput().type(Cypress.env('password'), { log: false })
+    signIn.loginButton().click()
+
+    // Verification of authentication
   })
 })
