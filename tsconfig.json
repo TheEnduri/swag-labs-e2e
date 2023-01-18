@@ -3,7 +3,7 @@
     "target": "es5",
     "lib": ["es5", "dom"],
     "types": ["cypress", "node"],
-    "baseUrl": "./tsconfig.json"
+    "baseUrl": "cypress"
   },
   "include": ["**/*.ts"]
 }
