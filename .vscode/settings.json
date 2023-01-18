@@ -11,5 +11,6 @@
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "json.format.enable": false
+  "json.format.enable": false,
+  "files.eol": "\n"
 }
