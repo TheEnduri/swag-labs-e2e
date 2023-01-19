@@ -21,7 +21,7 @@ jobs:
         with:
           name: cypress-screenshots
           path: cypress/screenshots
-      - name: Saving screenshot on failure
+      - name: Saving video of tests run
         uses: actions/upload-artifact@v3
         if: always()
         with:
