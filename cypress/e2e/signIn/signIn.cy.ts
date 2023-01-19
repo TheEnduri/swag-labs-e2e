@@ -13,15 +13,13 @@ describe('Sign-in process', () => {
   })
   it('Authentication of existing user', () => {
     // Login process
-    signIn.usernameInput().type(Cypress.env('username'))
-    signIn.passwordInput().type(Cypress.env('password'), { log: false })
-    signIn.loginButton().click()
+    cy.loginByGUI()
 
     // Verification of authentication
     cy.url().should('include', 'inventory.html')
     menu.burgerMenuButton()
     menu.shopingCart()
-    cy.get('div.header_secondary_container').contains('span.title', 'Products')
+    menu.secondaryHeader('Products')
     inventory.inventoryList().within(() => {
       inventory.inventoryItem().should('have.length.gte', 1)
     })
@@ -42,4 +40,6 @@ describe('Sign-in process', () => {
   it.skip('Locked user - blocking of authentication', () => {
     cy.log('**Not ready...**')
   })
+  // TODO
+  // Add tests of user logout
 })
