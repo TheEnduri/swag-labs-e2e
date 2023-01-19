@@ -1,5 +1,6 @@
 import inventoryPage from 'pages/inventory/inventory'
 import menuPage from 'pages/menu/menu'
+
 import signInPage from '../../pages/signIn/signInPage'
 
 const inventory = new inventoryPage()
