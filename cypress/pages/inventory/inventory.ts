@@ -14,5 +14,8 @@ class inventoryPage {
   inventoryItemPrice() {
     return cy.get('div.inventory_item_price')
   }
+  productSort() {
+    return cy.getBySel('product_sort_container')
+  }
 }
 export default inventoryPage
