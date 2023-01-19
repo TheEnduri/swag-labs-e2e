@@ -1,8 +1,8 @@
-import inventoryPage from 'pages/inventory/inventory'
+import { address, name } from 'faker'
 import checkoutPage from 'pages/checkout/checkoutPage'
+import inventoryPage from 'pages/inventory/inventory'
 import menuPage from 'pages/menu/menu'
 import { getRandomInt } from 'utils/random'
-import { name, address } from 'faker'
 
 const checkout = new checkoutPage()
 const inventory = new inventoryPage()
@@ -26,14 +26,7 @@ describe('Purchase process', () => {
           .eq(randomItemIndex)
           .as('selectedProduct')
           .within(() => {
-            // Getting product details
-            cy.wrap(productAttributes).each((attrib: string) => {
-              inventory[`inventoryItem${attrib}`]()
-                .invoke('text')
-                .then((itemAttrib) => {
-                  cy.wrap(itemAttrib).as(`item${attrib}`)
-                })
-            })
+            cy.getProductDetails(productAttributes)
           })
       })
     // Adding product to cart

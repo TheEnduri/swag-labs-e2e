@@ -21,6 +21,16 @@ Cypress.Commands.add(
   }
 )
 
+Cypress.Commands.add('getProductDetails', (productAttribs: string[]) => {
+  cy.wrap(productAttribs).each((attrib: string) => {
+    inventory[`inventoryItem${attrib}`]()
+      .invoke('text')
+      .then((itemAttrib) => {
+        cy.wrap(itemAttrib).as(`item${attrib}`)
+      })
+  })
+})
+
 Cypress.Commands.add(
   'cartItem',
   (index: number, quantity: number, productAttribs: string[]) => {

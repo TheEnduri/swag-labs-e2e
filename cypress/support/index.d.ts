@@ -21,6 +21,11 @@ declare namespace Cypress {
     loginByGUI(username?: string, password?: string): void
 
     /**
+     * Get details of given product
+     * This have to be used within query of inventory item
+     */
+    getProductDetails(productAttribs: string[]): void
+    /**
      *
      * @param index index of cart item
      * @param quantity number of given product
