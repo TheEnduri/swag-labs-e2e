@@ -34,11 +34,12 @@ describe('Sign-in process', () => {
     cy.contains('span.title', 'Products').should('not.exist')
     inventory.inventoryItem().should('have.length', 0)
     cy.get('div.login_logo').should('be.visible')
-    signIn
-      .errorInfo()
-      .should(
-        'contain.text',
-        "Epic sadface: You can only access '/inventory.html' when you are logged in."
-      )
+    signIn.errorInfo(
+      "Epic sadface: You can only access '/inventory.html' when you are logged in."
+    )
+  })
+  // TODO
+  it.skip('Locked user - blocking of authentication', () => {
+    cy.log('**Not ready...**')
   })
 })
