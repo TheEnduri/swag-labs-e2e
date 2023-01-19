@@ -5,7 +5,7 @@ Project base on Cypress and Typescript, tests can be launched locally and in pip
 
 The most common selectors/views are saved as page models
 
-Similarly, the most common actions are implented as Cypress Commands
+Similarly, the most common actions are implemented as Cypress Commands
 
 ## Stack
 - cypress
