@@ -1,10 +1,10 @@
 import inventoryPage from 'pages/inventory/inventory'
-import cartPage from 'pages/cart/cartPage'
+import checkoutPage from 'pages/checkout/checkoutPage'
 import menuPage from 'pages/menu/menu'
 import { getRandomInt } from 'utils/random'
 import { name, address } from 'faker'
 
-const cart = new cartPage()
+const checkout = new checkoutPage()
 const inventory = new inventoryPage()
 const menu = new menuPage()
 
@@ -43,28 +43,30 @@ describe('Purchase process', () => {
     menu.secondaryHeader('Your Cart')
     cy.url().should('include', '/cart.html')
     // Verifying cart
-    cart
-      .cartItem()
-      .should('have.length', 1)
-      .within(() => {
-        cart.itemQuantity('1')
-        productAttributes.forEach((attrib) => {
-          cy.get<string>(`@item${attrib}`).then((itemAttrib) => {
-            inventory[`inventoryItem${attrib}`]().should(
-              'contain.text',
-              itemAttrib
-            )
-          })
-        })
-        cy.contains('button', 'Remove')
-      })
+    checkout.cartItem().should('have.length', 1)
+    cy.cartItem(0, 1, productAttributes)
+    cy.contains('button', 'Remove')
     // Finalizing the purchase
-    cart.checkoutButton().click()
+    checkout.checkoutButton().click()
+    cy.url().should('include', '/checkout-step-one.html')
     menu.secondaryHeader('Checkout: Your Information')
-    cart.checkoutInfoContainer().within(() => {
-      cart.firstNameInput().type(name.firstName())
-      cart.lastNameInput().type(name.lastName())
-      cart.postalCodeInput().type(address.zipCode('##-###'))
+    checkout.checkoutInfoContainer().within(() => {
+      checkout.firstNameInput().type(name.firstName())
+      checkout.lastNameInput().type(name.lastName())
+      checkout.postalCodeInput().type(address.zipCode('##-###'))
     })
+    checkout.continueButton().should('have.value', 'Continue').click()
+    // Checkout overview
+    cy.url().should('include', '/checkout-step-two.html')
+    menu.secondaryHeader('Checkout: Overview')
+    checkout.cartItem().should('have.length', 1)
+    cy.cartItem(0, 1, productAttributes)
+    cy.contains('button', 'Remove').should('not.exist')
+    cy.checkoutSummary('SauceCard #31337', 'FREE PONY EXPRESS DELIVERY!', 8)
+    checkout.finishButton().click()
+    cy.url().should('include', '/checkout-complete.html')
+    checkout.checkoutSuccessPage()
+    checkout.backToHomeButton().should('contain.text', 'Back Home').click()
+    cy.url().should('include', '/inventory.html')
   })
 })
