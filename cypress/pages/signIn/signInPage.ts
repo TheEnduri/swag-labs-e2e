@@ -8,5 +8,8 @@ class signInPage {
   loginButton() {
     return cy.getBySel('login-button')
   }
+  errorInfo() {
+    return cy.getBySel('error')
+  }
 }
 export default signInPage

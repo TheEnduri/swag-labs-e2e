@@ -26,4 +26,19 @@ describe('Sign-in process', () => {
       inventory.inventoryItem().should('have.length.gte', 1)
     })
   })
+  it('Redirect not authenticated user to sign-in page', () => {
+    cy.visit('inventory.html', { failOnStatusCode: false })
+    menu.burgerMenuButton().should('not.exist')
+    menu.shopingCart().should('not.exist')
+    cy.url().should('not.include', '/inventory.html')
+    cy.contains('span.title', 'Products').should('not.exist')
+    inventory.inventoryItem().should('have.length', 0)
+    cy.get('div.login_logo').should('be.visible')
+    signIn
+      .errorInfo()
+      .should(
+        'contain.text',
+        "Epic sadface: You can only access '/inventory.html' when you are logged in."
+      )
+  })
 })
